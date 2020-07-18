@@ -23,7 +23,8 @@ app.use(bodyParser.json());
 app.use(cors())
 
 
-// app.get('/', (req, res) => { db.select('*').from('users').then(data => {res.send(data)}); })
+app.get('/', (req, res) => {res.send('it is working')} )
+//{ db.select('*').from('users').then(data => {res.send(data)}); })
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) })
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
 app.listen(process.env.PORT || 3000, () => { console.log(`app is running on pport ${process.env.PORT}`) })
