@@ -16,9 +16,9 @@ const db = knex({
     }
 });
 
-db.select('*').from('users').then(data => {
-  console.log(data);
-});
+// db.select('*').from('users').then(data => {
+//   // console.log(data);
+// });
 
 
 const app = express();
@@ -26,9 +26,12 @@ app.use(bodyParser.json());
 app.use(cors())
 
 
-// app.get('/', (req, res) => {
-//     res.send(database.users)
-// })
+app.get('/', (req, res) => {
+  db.select('*').from('users').then(data => {
+    res.send(data)
+  });  
+ 
+})
 
 app.post('/signin', (req, res) => {
     db.select('email', 'hash').from('login')
