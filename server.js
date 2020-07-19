@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
-const cors= require('cors');
+const cors = require('cors');
 const knex = require('knex');
 
 const register = require('./controllers/register');
@@ -19,11 +19,13 @@ const db = knex({
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors());
 
 
 app.get('/', (req, res) => {res.send('it is working')} )
 //{ db.select('*').from('users').then(data => {res.send(data)}); })
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) })
-app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
+
+app.options('/register', cors());
+app.post('/register', cors(), (req, res) => { register.handleRegister(req, res, db, bcrypt) })
 app.listen(process.env.PORT || 3000, () => { console.log(`app is running on port ${process.env.PORT}`) })
